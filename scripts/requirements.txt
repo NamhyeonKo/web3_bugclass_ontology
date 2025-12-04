@@ -1,0 +1,10 @@
+# Neo4j Data Import Script Dependencies
+
+# Neo4j Python driver
+neo4j>=5.14.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Markdown parsing (optional, for advanced parsing if needed)
+# markdown>=3.5.0
