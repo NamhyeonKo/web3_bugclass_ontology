@@ -127,8 +127,9 @@ class SWCParser:
             CWE node dictionary or None
         """
         # Pattern: [CWE-841: Improper Enforcement...](https://cwe.mitre.org/data/definitions/841.html)
+        # Support both http:// and https:// URLs
         match = re.search(
-            r'\[CWE-(\d+):\s*([^\]]+)\]\((https://cwe\.mitre\.org/data/definitions/\d+\.html)\)',
+            r'\[CWE-(\d+):\s*([^\]]+)\]\((https?://cwe\.mitre\.org/data/definitions/\d+\.html)\)',
             content
         )
 

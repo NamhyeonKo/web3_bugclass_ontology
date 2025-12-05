@@ -18,6 +18,14 @@ from typing import Dict
 import config
 from neo4j_client import Neo4jClient
 from parsers import OWASPParser, SWCParser, SCSVSParser
+from create_bug_classes import (
+    create_bug_classes,
+    map_owasp_to_bugclass,
+    map_scsvs_to_bugclass,
+    map_swc_to_bugclass,
+    create_equivalent_relationships,
+    print_statistics as print_bugclass_statistics
+)
 
 
 def setup_logging(verbose: bool = False):
@@ -401,6 +409,16 @@ def main():
             'swc': import_swc_data(client),
             'scsvs': import_scsvs_data(client)
         }
+
+        # Create BugClass nodes and mappings
+        logger.info("=" * 60)
+        logger.info("Creating BugClass taxonomy and mappings...")
+        create_bug_classes(client)
+        map_owasp_to_bugclass(client)
+        map_scsvs_to_bugclass(client)
+        map_swc_to_bugclass(client)
+        create_equivalent_relationships(client)
+        print_bugclass_statistics(client)
 
         # Print summary
         print_summary(client, stats)
